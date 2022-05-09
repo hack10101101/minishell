@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:36:05 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/05/06 14:15:44 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/05/09 17:32:58 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void ft_check(char **av, char **env)
 		ft_env(env);
 	if (ft_strncmp("pwd", av[1], 3) == 0)
 		ft_pwd(env);
+	if (ft_strncmp("export", av[1], 7) == 0)
+		ft_export(env);
 }
 
 int	main(int ac, char **av, char **env)

@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/05/05 18:27:01 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/05/09 17:49:12 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,32 @@ void 	ft_echo_n(char **av)
 	{
 		str = ft_strjoin(str, av[i]);
 		if (av[i + 1])
-			str = ft_strjoin(str, " ");
+		str = ft_strjoin(str, " ");
 		str++;
 		i++;
 	}
 	printf("%s", str);
+}
+void	ft_boucle(char **env, t_list **exp)
+{
+	int i = 1;
+	while (env[i])
+	{
+		ft_lstadd_front(exp, ft_lstnew(env[i]));
+		++i;
+	}
+}
+void	ft_export(char **env)
+{
+	t_list *exp;
+
+	exp = ft_lstnew(env[0]);
+	ft_boucle(env, &exp);
+	while (exp)
+	{
+		printf("%s\n", (char *)exp->content);
+		exp = exp->next;
+	}
 }
 
 void 	ft_echo(char **av)

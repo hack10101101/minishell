@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 13:40:09 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/05/09 17:33:02 by kdi-noce         ###   ########.fr       */
+/*   Created: 2021/11/12 16:44:57 by kdi-noce          #+#    #+#             */
+/*   Updated: 2021/11/24 21:30:41 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
+# include <stdarg.h>
+# include <unistd.h>
 # include <stdio.h>
-# include "../srcs/libft/libft.h"
-# include "../srcs/printf/ft_printf.h"
+# include <limits.h>
+# include <stdlib.h>
 
-typedef struct s_args
-{
-	int		ac;
-	char	**av;
-	int		av_len;
-}			t_args;
-
-void	ft_check(char **av, char **env);
-void 	ft_echo(char **av);
-void 	ft_echo_n(char **av);
-void	ft_env(char **env);
-void	ft_pwd(char **env);
-void	ft_export(char **env);
+int	ft_printf(const char *s, ...);
+int	ft_putnbr(int nbr);
+int	ft_putstr(char *str);
+int	ft_putchar(char c);
+int	ft_mitoa(int nb);
+int	ft_pourcent(void);
+int	ft_uitoa(int unsigned nb);
+int	ft_itohex(unsigned long long nbr, const char c);
+int	ft_callhex(unsigned int nbr, const char c);
 
 #endif
