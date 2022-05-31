@@ -6,7 +6,7 @@
 #    By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 15:19:42 by kdi-noce          #+#    #+#              #
-#    Updated: 2022/05/05 18:37:04 by kdi-noce         ###   ########.fr        #
+#    Updated: 2022/05/30 09:28:50 by kdi-noce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ $(NAME):	$(LIBFT) $(SRC)
 
 $(LIB):
 			make -C libft
+del:
+			rm -rf minishell.dSYM
 
 clean:
 			make -C libft clean

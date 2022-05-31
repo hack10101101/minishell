@@ -6,7 +6,7 @@
 #    By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 15:19:42 by kdi-noce          #+#    #+#              #
-#    Updated: 2022/05/09 16:16:53 by kdi-noce         ###   ########.fr        #
+#    Updated: 2022/05/30 09:47:38 by kdi-noce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,11 @@ $(NAME):	$(LIBFT) $(PRINTF) $(SRC)
 $(LIBFT):
 		make -C $(LIBFT_DIR)
 
-$(PRINTF)):
+$(PRINTF):
 		make -C $(PRINTF_DIR)
+
+d:
+		rm -rf minishell.dSYM
 
 clean:
 		make -C clean $(LIBFT_DIR) 
