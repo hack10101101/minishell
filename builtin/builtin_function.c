@@ -6,11 +6,32 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/05/30 16:49:15 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:18:14 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+int ft_str_search(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] != c)
+	{
+		while (str[i] != c && str[i])
+		{
+			printf("%c\n", str[i]);
+			if (str[i] != c)
+				i++;
+			else
+				break;
+		}
+		if (str[i] != c)
+			return (1);
+	}
+	return (0);
+}
 
 void	ft_env(t_list *list)
 {
@@ -45,9 +66,8 @@ void 	ft_echo_n(char **av)
 	printf("%s", str);
 }
 
-void	ft_export(int ac, char **av, t_list *list, t_list *temp)
+t_list	*ft_export(int ac, char **av, t_list **list)
 {
-	(void)	temp;
 	int		i;
 
 	i = 2;
@@ -55,18 +75,16 @@ void	ft_export(int ac, char **av, t_list *list, t_list *temp)
 	{
 		while (av[i])
 		{
-			printf("%s\n", av[i]);
-			printf("%s\n", av[i + 1]);
-			if (ft_strncmp("=", av[i], 2) == 0 && av[i + 1] == NULL)
+			printf("%d\n", ft_lstsize(*list));
+			if (ft_str_search(av[i], '=') == 0)
 			{
-				printf("1\n");
-				ft_lstadd_back(&list, ft_lstnew(av[i]));
+				ft_lstadd_back(list, ft_lstnew(av[i]));
+				return (*list);
 			}
 			i++;
 		}
 	}
-	else
-		ft_printexp(list);
+	return (NULL);
 }
 
 void 	ft_echo(char **av)

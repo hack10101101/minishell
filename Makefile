@@ -6,40 +6,76 @@
 #    By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 15:19:42 by kdi-noce          #+#    #+#              #
-#    Updated: 2022/05/30 09:47:38 by kdi-noce         ###   ########.fr        #
+#    Updated: 2022/06/07 17:36:44 by kdi-noce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	minishell
-LIBFT_DIR	= 	./srcs/libft
-LIBFT 		= 	$(LIBFT_DIR)/libft.a
-PRINTF_DIR	= 	./srcs/printf
-PRINTF 		= 	$(PRINTF_DIR)/libftprintf.a
-CC			=	gcc
-CFLAG		=	-Wall -Wextra -Werror -g3 -fsanitize=address
-SRC			=	./builtin/builtin_main.c		\
-				./builtin/builtin_function.c	\
+SHELL = /bin/sh
 
-all:		$(NAME)
+CFLAGS := ${CFLAGS}
 
-$(NAME):	$(LIBFT) $(PRINTF) $(SRC)
-		$(MAKE) -C $(LIBFT_DIR)
-		$(CC) $(CFLAG) $(SRC) $(LIBFT) $(PRINTF) -o $(NAME)
+CC	= gcc
 
-$(LIBFT):
-		make -C $(LIBFT_DIR)
+INC_FLAGS := -Isrcs/libft/
+LIBS := -Lsrcs/libft -lft -lreadline
+#UNAME = $(shell uname -s) = connaitre l'os sur lequel on est
+UNAME = $(shell uname -s)
+#nproc = nombre de coeur disponible
+ifeq ($(UNAME), Linux)
+	# NPROC := $(shell nproc)
+else
+	# NPROC := $(shell sysctl -n hw.ncpu)
+	INC_FLAGS += -I$(HOME)/.brew/opt/readline/include
+    LIBS += -L$(HOME)/.brew/opt/readline/lib
+endif
 
-$(PRINTF):
-		make -C $(PRINTF_DIR)
+NAME ?= minish
 
-d:
-		rm -rf minishell.dSYM
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./
 
+SRCS := $(shell find $(SRC_DIRS) -name '*.c')
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+#$(shell find $(SRC_DIRS) -type d) = trouver les includes dans shell, type d = dossier
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+#INC_FLAGS += $(addprefix -I,$(INC_DIRS)) = ajouter prefix include devant INC_DIRS
+INC_FLAGS += $(addprefix -I,$(INC_DIRS))
+
+LIB    := srcs/libft/libft.a
+
+CFLAGS += -Wall -Wextra -Werror
+#CFLAGS += -O2 -march=native
+#CFLAGS += -g3
+
+#all: make -j : nbr process compilation(plusieur coeur pour compilation) 
+all:
+	@$(MAKE) -j$(NPROC) $(NAME)
+#$(NAME) -> @echo => affiche linking NAME
+$(NAME): $(LIB) $(OBJS)
+	@echo Linking $@
+	@$(CC) $(CFLAGS) $(INC_FLAGS) $(OBJS) $(LIBS) -o $(NAME)
+#echo compiling $@ = echo $(BUILD_DIR)
+#@mkdir -p $(dir $@) = creer un dossier si existe pas avec $(BUILD_DIR)
+$(BUILD_DIR)/%.c.o: %.c
+	@echo Compiling $@
+	@mkdir -p $(dir $@)
+	@$(CC) -c  $(CFLAGS) $(INC_FLAGS) $< -o $@
+
+$(LIB):
+	@$(MAKE) -C srcs/libft
+	@echo Libft done
 clean:
-		make -C clean $(LIBFT_DIR) 
+	@rm -rf $(BUILD_DIR)
+	@$(MAKE) -C srcs/libft clean
+	@echo Clean done
 
 fclean:
-		rm -rf $(NAME)
-		$(MAKE) -C $(LIBFT_DIR) fclean
+	@rm -rf $(BUILD_DIR)
+	@rm -f $(NAME)
+	@$(MAKE) -C srcs/libft fclean
+	@echo Fclean done
+#@$(MAKE) -j$(NPROC) $(NAME) = rappel $(NAME)
+re: fclean
+	@$(MAKE) -j$(NPROC) $(NAME)
 
-re:		fclean all
+.PHONY: all clean fclean re
