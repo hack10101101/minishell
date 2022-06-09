@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_function.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dino <dino@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/07 17:18:14 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:46:34 by dino             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ int ft_str_search(char *str, char c)
 	return (0);
 }
 
-void	ft_env(t_list *list)
+void	ft_env(t_list *list, t_list *first_chain)
 {
-	ft_printexp(list);
+	ft_printexp(list, first_chain);
 }
 
 void	ft_pwd(char **env)
 {
-	
 	while (*env)
 	{
 		if (ft_strncmp("PWD", *env, 3) == 0)
@@ -49,36 +48,36 @@ void	ft_pwd(char **env)
 	}
 }
 
-void 	ft_echo_n(char **av)
+void 	ft_echo_n(char *input)
 {
 	int	i;
 	char *str;
 
 	i = 3;
-	while (av[i])
+	while (input[i])
 	{
-		str = ft_strjoin(str, av[i]);
-		if (av[i + 1])
-		str = ft_strjoin(str, " ");
+		str = ft_strjoin(str, input);
+		if (input[i + 1])
+			str = ft_strjoin(str, " ");
 		str++;
 		i++;
 	}
 	printf("%s", str);
 }
 
-t_list	*ft_export(int ac, char **av, t_list **list)
+t_list	*ft_export(char *input, t_list **list)
 {
 	int		i;
 
 	i = 2;
-	if (ft_strncmp("export", av[1], 7) == 0 && ac > 2)
+	if (ft_strcmp("export", input) == 0 && count_words(input, ' ') > 1)
 	{
-		while (av[i])
+		while (input[i])
 		{
 			printf("%d\n", ft_lstsize(*list));
-			if (ft_str_search(av[i], '=') == 0)
+			if (ft_str_search(input, '=') == 0)
 			{
-				ft_lstadd_back(list, ft_lstnew(av[i]));
+				ft_lstadd_back(list, ft_lstnew(input));
 				return (*list);
 			}
 			i++;
@@ -87,24 +86,20 @@ t_list	*ft_export(int ac, char **av, t_list **list)
 	return (NULL);
 }
 
-void 	ft_echo(char **av)
+void 	ft_echo(char *input)
 {
 	int	i;
-	int j;
 
-	i = 2;
-	j = 0;
-	while (av[i])
+	i = 0;
+	while (input[i])
 	{
-		j = 0;
-		while (av[i][j])
+		if (input[i] == '\n')
 		{
-			if (av[i][j] == '\n')
-				printf("\n");
-			j++;
+			printf("\n");
+			i++;
 		}
-		printf("%s", av[i]);
-		if (av[i + 1] == NULL)
+		printf("%s", input);
+		if (input[i + 1] == 0)
 			break;
 		printf(" ");
 		i++;
