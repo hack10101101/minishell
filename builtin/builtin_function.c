@@ -6,7 +6,7 @@
 /*   By: dino <dino@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/09 14:46:34 by dino             ###   ########.fr       */
+/*   Updated: 2022/06/09 18:02:55 by dino             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_list	*ft_export(char *input, t_list **list)
 			printf("%d\n", ft_lstsize(*list));
 			if (ft_str_search(input, '=') == 0)
 			{
-				ft_lstadd_back(list, ft_lstnew(input));
+				ft_lstadd_back(list, ft_lstnew(input, 20));
 				return (*list);
 			}
 			i++;
