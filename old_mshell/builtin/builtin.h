@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dino <dino@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:40:09 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/13 13:43:42 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:46:29 by dino             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ typedef struct s_args
 	int		av_len;
 }			t_args;
 
-void	ft_check(char *input, char **env, t_list *list);
+
+void	ft_check(char *input, char **env, t_list *list, t_list *first_chain);
+void	ft_printexp(t_list *list, t_list *first_chain);
 void 	ft_echo(char *input);
 void 	ft_echo_n(char *input);
-void	ft_env(t_list *list);
+void	ft_env(t_list *list, t_list *first_chain);
 void	ft_pwd(char **env);
 t_list	*ft_export(char *input, t_list **list);
-void	ft_printexp(t_list *list);
-int 	ft_str_search(char *str, int i);
+int 	ft_str_search(char *str, char c);
 
 #endif
