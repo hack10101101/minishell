@@ -6,7 +6,7 @@
 #    By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 15:19:42 by kdi-noce          #+#    #+#              #
-#    Updated: 2022/06/13 14:07:22 by kdi-noce         ###   ########.fr        #
+#    Updated: 2022/06/15 16:47:47 by kdi-noce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ INC_FLAGS += $(addprefix -I,$(INC_DIRS))
 
 LIB    := srcs/libft/libft.a
 
-CFLAGS += -Wall -Wextra
+CFLAGS += -Wall -Wextra #-g3 -fsanitize=address
 #CFLAGS += -O2 -march=native
 #CFLAGS += -g3
 

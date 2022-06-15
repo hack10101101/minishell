@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:40:09 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/13 13:43:42 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/15 15:30:54 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,20 @@ void 	ft_echo(char *input);
 void 	ft_echo_n(char *input);
 void	ft_env(t_list *list);
 void	ft_pwd(char **env);
-t_list	*ft_export(char *input, t_list **list);
 void	ft_printexp(t_list *list);
-int 	ft_str_search(char *str, int i);
+int 	ft_str_search(char *str, int i, int count);
+
+/* BUILTIN_FONCTIONS */
+
+t_list	*ft_export(char *input, t_list **list);
+void	search_args(char *input, t_list **list, int i);
+int		check_if_similar(char **str, int count);
+void	stock_args_in_list(char **str, t_list **list);
+int		check_list(char **str, t_list *list);
+int		check_alpha(char *s1, char *s2);
+
+/* ft_FCT_ANNEXE */
+
+int		ft_boucle(char *input, char c, int i);
 
 #endif

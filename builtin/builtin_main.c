@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:36:05 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/13 15:28:42 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/15 15:31:03 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_printexp(t_list *list)
 {
 	while (list)
 	{
-		printf("list: %s\n", list->content);
+		printf("declare - x %s\n", list->content);
 		list = list->next;
 	}
 }
@@ -54,7 +54,6 @@ void ft_check(char	*input, char **env, t_list *list)
 
 int	main(int argc, char **argv, char **env)
 {
-	// t_list	*first = NULL;
 	t_list	*list;
 	char	*input;
 
