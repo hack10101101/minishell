@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_function.c                                 :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/15 19:09:21 by kdi-noce         ###   ########.fr       */
+/*   Created: 2022/06/18 19:18:48 by kdi-noce          #+#    #+#             */
+/*   Updated: 2022/06/18 19:24:55 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,26 +108,6 @@ int	check_if_similar(char **str, int count)
 	return (0);
 }
 
-void	search_args(char *input, t_list **list, int i)
-{
-	char **str;
-	int h;
-	int l;
-	int	count;
-
-	h = 0;
-	l = 0;
-	count = 0;
-	count = ft_str_search(input, i, count);
-	str = ft_split(input, ' ');
-	if (check_if_similar(str, count) == 1)
-		printf("\n");
-	stock_args_in_list(str, list);
-	// h = 0;
-	// while(str[h])
-	// 	free(str[h]);
-}
-
 int	check_first_ltr(char *str, int len_str)
 {
 	int	i;
@@ -143,86 +123,4 @@ int	check_first_ltr(char *str, int len_str)
 	}
 	printf("%d\n", rank);
 	return (rank);
-}
-
-void	print_list(char **str, int len_list, int temp)
-{
-	char	**str_sub;
-	char	temp;
-	int		len_str;
-	int		h;
-	int		i;
-
-	h = 0;
-	i = 0;
-	len_str = 0;
-	str_sub = ft_calloc(len_list + 1, sizeof(char *));
-	while (str[h])
-	{
-		len_str = ft_strlen(str[h]);
-		str_sub[h] = ft_calloc(len_str + 1, sizeof(char));
-		str_sub[h] = str[h];
-		h++;
-	}
-	h = 0;
-	while (str_sub[h])
-	{
-		if (str_sub[h][0] >= 65 && str_sub[h][0] <= 90)
-		{
-			i = 0;
-			while (str_sub[i])
-			{
-				if (str_sub[i][0] < str_sub[i + 1][0])
-					str_sub[i]
-			}
-		}
-	}
-}
-
-void	order_list(t_list *list)
-{
-	char	**str;
-	// int		count;
-	int		len_str;
-	int		len_list;
-	int		h;
-	int		temp;
-
-	// count = 0;
-	len_str = 0;
-	len_list = 0;
-	h = 0;
-	str = NULL;
-
-	len_list = ft_lstsize(list);
-	str = ft_calloc(len_list + 1, sizeof(char *));
-	while (list)
-	{
-		len_str = ft_strlen((char *)list->content);
-		str[h] = ft_calloc(len_str + 1, sizeof(char));
-		str[h] = (char *)list->content;
-		printf("%s\n", str[h]);
-		list = list->next;
-		h++;
-	}
-	temp = h;
-	print_list(str, len_list, temp);
-}
-
-t_list	*ft_export(char *input, t_list **list)
-{
-	int		i;
-
-	i = 0;
-	while (input[i])
-		i++;
-	if (i == 6)
-	{
-		order_list(*list);
-		// ft_printexp(*list);
-	}
-	else
-		search_args(input, list, i);
-
-	return (NULL);
 }

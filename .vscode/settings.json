@@ -5,6 +5,8 @@
 		"algorithm": "c",
 		"bitset": "c",
 		"chrono": "c",
-		"unordered_map": "c"
+		"unordered_map": "c",
+		"ft_printf.h": "c",
+		"sstream": "c"
 	}
 }

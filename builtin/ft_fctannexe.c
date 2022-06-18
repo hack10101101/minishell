@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 15:26:02 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/15 19:05:47 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:41:16 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,54 @@ int	ft_boucle(char *input, char c, int i)
 	return (i);
 }
 
-void	manage_rb(t_data *global)
+void ft_display(char **array)
 {
-	int	x;
-	int	y;
-	int	temp;
-
-	temp = 0;
-	x = 0;
-	y = 0;
-	if (!(global->tab[0]))
-		ft_exit(global, 1);
-	while (x < global->len_a)
+	printf("----start----\n"); 
+	while (*array)
 	{
-		if (x == 0)
+		printf("%c\n", *array[0]); 
+		array++;
+	}
+	printf("----end----\n"); 
+}
+
+void	ft_swap(char **array, int idx)
+{
+	char *temp;
+
+	temp = array[idx];
+	array[idx] = array[idx + 1];
+	array[idx + 1] = temp;
+}
+
+int	ft_check_order(char **array)
+{
+	int	j;
+
+	j = 0;
+	while (array[j + 1])
+	{
+		if (array[j + 1][0] != 0 && array[j][0] > array[j + 1][0])
+			return (0);
+		j++;
+	}
+	return (1);
+}
+
+void	bubble_sort(char **array)
+{
+	int	i;
+
+	while (ft_check_order(array) == 0)
+	{
+		i = 0;
+
+		while (array[i])
 		{
-			temp = global->tab[0][0];
-			global->tab[0][0] = global->tab[0][1];
-			x++;
+			// ft_display(array);
+			if (array[i + 1] && array[i + 1][0] != '\0' && array[i][0] > array[i + 1][0])
+				ft_swap(array, i);
+			i++;
 		}
-		if (x == global->len_a - 1)
-			global->tab[0][x] = temp;
-		else
-			global->tab[0][x] = global->tab[0][x + 1];
-		x++;
 	}
 }

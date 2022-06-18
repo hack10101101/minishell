@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 17:36:05 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/15 15:31:03 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/18 19:52:39 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,36 @@ int	the_first_args(char *input)
 	i = 0;
 	while (input[i] != ' ' && input[i])
 		i++;
+	if (ft_strncmp("env", input, i) == 0)
+		return (0);
 	if (ft_strncmp("export", input, i) == 0)
 		return (1);
+	if (ft_strncmp("unset", input, i) == 0)
+		return (2);
+	if (ft_strncmp("echo", input, i) == 0)
+		return (3);
+	if (ft_strncmp("pwd", input, i) == 0)
+		return (4);	
+	if (ft_strncmp("exit", input, i) == 0)
+		return (5);	
 	return (0);
 }
 
 void ft_check(char	*input, char **env, t_list *list)
 {
 	(void) env;
+	if (the_first_args(input) == 0)
+		ft_env(list, input);
 	if (the_first_args(input) == 1)
 		ft_export(input, &list);
+	if (the_first_args(input) == 2)
+		ft_unset(input, &list);
+	if (the_first_args(input) == 3)
+		ft_echo(input);
+	if (the_first_args(input) == 4)
+		ft_pwd(env);
+	if (the_first_args(input) == 5)
+		ft_exit();
 }
 
 int	main(int argc, char **argv, char **env)
