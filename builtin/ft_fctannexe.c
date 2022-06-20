@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 15:26:02 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/18 19:41:16 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:20:50 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int ft_str_search(char *str, int i, int count)
 {
-	while(i >= 0)
+	while (i >= 0)
 	{
+		// printf("str[%d] = %c\n", i, str[i]);
 		if (str[i] == '=')
 			count++;
 		i--;

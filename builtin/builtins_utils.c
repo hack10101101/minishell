@@ -6,41 +6,11 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 19:18:48 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/18 19:24:55 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:16:13 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-int	check_alpha(char *s1, char *s2)
-{
-	int	count;
-	int	i;
-	int	j;
-
-	i = 0;
-	count = 0;
-	while (s2[count])
-		count++;
-	while (s1[i])
-	{
-		j = 0;
-		while(s2[j])
-		{
-			if (s2[j] == s1[i])
-			{
-				count--;
-				break ;
-			}
-			j++;
-		}
-		i++;
-	}
-	if (count != 0)
-		return (1);
-	else
-		return (0);
-}
 
 int	check_list(char **str, t_list *list)
 {
@@ -85,6 +55,36 @@ void	stock_args_in_list(char **str, t_list **list)
 	}
 }
 
+int	check_alpha(char *s1, char *s2)
+{
+	int	count;
+	int	i;
+	int	j;
+
+	i = 0;
+	count = 0;
+	while (s2[count])
+		count++;
+	while (s1[i])
+	{
+		j = 0;
+		while(s2[j])
+		{
+			if (s2[j] == s1[i])
+			{
+				count--;
+				break ;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (count != 0)
+		return (1);
+	else
+		return (0);
+}
+
 int	check_if_similar(char **str, int count)
 {
 	char	*s;
@@ -98,7 +98,7 @@ int	check_if_similar(char **str, int count)
 		s = str[i];
 		if (check_alpha(s, str[i + 1]) != 0)
 			i++;
-		else if (check_alpha(s, str[i + 1]) == 0)
+		else
 		{
 			return (1);
 			break ;

@@ -6,11 +6,28 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:16:27 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/15 15:34:01 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/20 14:17:35 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+// int	check_first_ltr(char *str, int len_str)
+// {
+// 	int	i;
+// 	int rank;
+
+// 	i = 0;
+// 	rank = 0;
+
+// 	while (i < len_str)
+// 	{
+// 		rank += 127 - str[i];
+// 		i++;
+// 	}
+// 	printf("%d\n", rank);
+// 	return (rank);
+// }
 
 // void	ft_add_str(char *av)
 // {

@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:29:16 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/18 20:42:39 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/20 13:44:18 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	ft_env(t_list *list, char *input)
 {
-	order_list(list, input);
+	while (list)
+	{
+		printf("%s\n", list->content);
+		list = list->next;
+	}
 }
 
 void	ft_pwd(char **env)
@@ -82,19 +86,25 @@ t_list	*ft_unset(char *input, t_list **list)
 	str = order_list(*list, input);
 	i = 0;
 	x = 1;
-	while (str[i])
+	while (search[x])
 	{
-		// printf("%s\n", str[i]);
-		printf("unset = %s\n", search[x]);
-		if (str[i] == search[x])
-		{
-			printf("unset = %s\n", str[i]);
-			x++;
-		}
-		i++;
+		printf("search[%d] = %s\n", x, search[x]);
+		x++;
 	}
-	i = 0;
-	while (str[i])
-		printf("%s\n", str[i++]);
+	// while (ft_strcmp(search[x], str[i]) == 0)
+	// {
+		// while (str[i])
+		// {
+		// 	if (ft_strcmp(search[x], str[i]) == 0)
+		// 	{
+		// 		printf("unset = %s\n", str[i]);
+		// 		x++;
+		// 	}
+		// 	i++;
+		// }
+		// i = 0;
+	// }
+	// while (str[i])
+	// 	printf("%s\n", str[i++]);
 	return (NULL);
 }
