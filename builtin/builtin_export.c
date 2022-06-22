@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dino <dino@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/20 17:19:04 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/22 07:36:00 by dino             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,74 @@ void	print_tab(char **str)
 	}
 }
 
-void add_befor_after(char *temp)
+char	*manage_b_and_end_quotation(char *s1, char *s2, int l)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	printf("temp > '%s'\n", temp);
-	
+	j = 0;
+	while (i <= l)
+	{
+		if (i == 0)
+		{
+			s1[i] = s2[j];
+			i++;
+			s1[i] = '"';
+			i++;
+			j++;
+		}
+		s1[i] = s2[j];
+		if (i == l)
+			s1[i] = '"';
+		i++;
+		j++;
+	}
+	return (s1);
 }
 
-void	add_guillemet(char **str)
+char	*manage_end_str(char *str, int len)
+{
+	char	*temp;
+	int		l;
+	int		i;
+
+	i = 0;
+	l = len + 1;
+	temp = calloc(len + 1, sizeof(char *));
+	temp = manage_b_and_end_quotation(temp, str, l);
+	i = 0;
+	while (temp[i])
+	{
+		str[i] = temp[i];
+		i++;
+	}
+	free(temp);
+	return (str);
+}
+
+void	manage_quotation(char **str)
 {
 	int	l;
 	int i;
 	char *temp;
 
 	l = 0;
+	i = 0;
 	str[1] = ft_strchr(str[1], '=');
 	printf("str > '%c'\n", str[1][l]);
-	i = ft_strlen(str[1]);
-	printf("i > '%d'\n", i);
-	temp = calloc(i, sizeof(char *));
-	ft_strlcat(temp, str[1], i + 3);
-	add_befor_after(temp);
+	l = ft_strlen(str[1]);
+	printf("l > '%d'\n", l);
+	temp = calloc(l, sizeof(char *));
+	ft_strlcat(temp, str[1], l + 3);
+	temp = manage_end_str(temp, l);
+	printf("temp > '%s'\n", temp);
+	while (temp[i])
+	{
+		str[1][i] = temp[i];
+		i++;
+	}
+	printf("str[%s]\n", str[1]);
 }
 
 char	**search_args(char *input, t_list **list, int i)
@@ -93,7 +138,7 @@ char	**search_args(char *input, t_list **list, int i)
 	str = ft_split(input, ' ');
 	// if (check_if_similar(str, count) == 1)
 	// 	printf("\n");
-	add_guillemet(str);
+	manage_quotation(str);
 	// if (the_first_args(input) == 1)
 	// 	stock_args_in_list(str, list);
 	// if (the_first_args(input) == 2)
