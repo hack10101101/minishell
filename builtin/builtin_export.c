@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dino <dino@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/22 07:36:00 by dino             ###   ########.fr       */
+/*   Updated: 2022/06/22 19:42:12 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,28 +100,80 @@ char	*manage_end_str(char *str, int len)
 	return (str);
 }
 
+// void	advance_to_equal(char **temp, int h)
+// {
+// 	int	i;
+	
+// 	i = 0;
+// 	printf("str = [%s]\n", temp[i]);
+// 	// while(i < h)
+// 	// {
+// 	// 	temp[i] = ft_strchr(temp[i], '=');
+// 	// 	printf("str = [%s]\n", temp[i]);
+// 	// 	i++;
+// 	// }
+// }
+
+void	return_equal(char **str, char **temp)
+{
+	int	i;
+	int	l;
+	int h;
+
+	i = -1;
+	l = 0;
+	h = 0;
+	while (str[++i])
+		h++;
+	printf("h = %d\n", h);
+	i = 0;
+	temp = ft_calloc(h, sizeof(char *));
+	while (++i < h)
+	{
+		l = ft_strlen(str[i]);
+		temp[i] = ft_calloc(l + 3, sizeof(char *));
+		temp[i] = str[i];
+		temp[i] = ft_strchr(temp[i], '=');
+		printf("str = [%s]\n", temp[i]);
+	}
+	// advance_to_equal(temp, h);
+	// while (++i < h - 1)
+	// 	printf("str = [%s]\n", temp[i]);
+}
+
 void	manage_quotation(char **str)
 {
 	int	l;
 	int i;
-	char *temp;
+	char **temp;
 
 	l = 0;
 	i = 0;
-	str[1] = ft_strchr(str[1], '=');
-	printf("str > '%c'\n", str[1][l]);
-	l = ft_strlen(str[1]);
-	printf("l > '%d'\n", l);
-	temp = calloc(l, sizeof(char *));
-	ft_strlcat(temp, str[1], l + 3);
-	temp = manage_end_str(temp, l);
-	printf("temp > '%s'\n", temp);
-	while (temp[i])
-	{
-		str[1][i] = temp[i];
-		i++;
-	}
-	printf("str[%s]\n", str[1]);
+	temp = NULL;
+	return_equal(str, temp);
+	// ret_str = str[1];
+	// ret_str = ft_strchr(str[1], '=');
+	// printf("str > '%c'\n", ret_str[l]);
+	// l = ft_strlen(ret_str);
+	// printf("l > '%d'\n", l);
+	// temp = calloc(l, sizeof(char *));
+	// ft_strlcat(temp, ret_str, l + 3);
+	// temp = manage_end_str(temp, l);
+	// printf("temp > '%s'\n", temp);
+	// while (temp[i])
+	// {
+	// 	ret_str[i] = temp[i];
+	// 	i++;
+	// }
+	// i = 0;
+	// l = 0;
+	// printf("str[%s]\n", ret_str);
+	// while (str[1][i] != '=')
+	// 	i++;
+	// while (str[1][i])
+	// 	str[1][i++] = ret_str[l++];
+	// printf("str > '%s'\n", str[1]);
+	// // return (str);
 }
 
 char	**search_args(char *input, t_list **list, int i)
@@ -138,6 +190,7 @@ char	**search_args(char *input, t_list **list, int i)
 	str = ft_split(input, ' ');
 	// if (check_if_similar(str, count) == 1)
 	// 	printf("\n");
+	
 	manage_quotation(str);
 	// if (the_first_args(input) == 1)
 	// 	stock_args_in_list(str, list);
