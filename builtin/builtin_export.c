@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dino <dino@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:32:12 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/23 08:13:27 by dino             ###   ########.fr       */
+/*   Updated: 2022/06/25 14:58:55 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-// void	print_list(char **str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	bubble_sort(str);
-// 	while (str[i])
-// 	{
-// 		printf("declare -x %s\n", str[i]);
-// 		i++;
-// 	}
-// }
 
 void	print_list(char **str, t_list **list)
 {
@@ -54,35 +41,156 @@ void	print_tab(char **str)
 	}
 }
 
-char	*manage_b_and_end_quotation(char *s1, char *s2, int l)
+char	*manage_b_and_end_quotation(char *s1, char *s2, int len)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i <= l)
+	i = 1;
+	j = 1;
+	if (s2[0] == 0)
+		return (NULL);
+	s1[0] = s2[0];
+	while (i < len)
 	{
-		if (i == 0)
+		if (i == 1)
 		{
-			s1[i] = s2[j];
-			printf("manage b = %c\n", s1[i]);
-			i++;
 			s1[i] = '"';
-			printf("manage b = %c\n", s1[i]);
 			i++;
-			j++;
-		
 		}
-		printf("manage b = %c\n", s1[i]);
 		s1[i] = s2[j];
-		if (i == l)
+		if (i == len - 1)
 			s1[i] = '"';
-		printf("manage b = %c\n", s1[i]);
 		i++;
 		j++;
 	}
+	s1[i] = 0;
 	return (s1);
+}
+
+void	free_them_all(char **str, int h)
+{
+	int	i;
+
+	i = 0;
+	while (i < h)
+	{
+		free(str[i]);
+		str[i] = NULL;
+		i++;
+	}
+}
+
+void	print_str(char *note1, char *str, char c, int i, char *note2)
+{
+	if (c == 0)
+		printf("%d: %s[%s]	note -> '%s'\n", i, note1, str, note2);
+	else if (c != 0)
+		printf("%d: %s[%s]	'%c' note -> '%s'\n", i, note1, str, c, note2);
+}
+
+char	*fulling_str(char *str, char *temp, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		str[i] = temp[i];
+		i++;
+	}
+	return (str);
+}
+
+void	realloc_str(char *s1, int len, int h, int i)
+{
+	char	*s2;
+
+	s2 = NULL;
+	s2 = (char *)ft_calloc(len + 2, sizeof(char *));
+	s2 = &s1[i];
+	s1[i] = *(char *)ft_calloc(len + 2, sizeof(char *));
+	s1[i] = *fulling_str(&s1[i], s2, len + 2);
+	free(s2);
+}
+
+void	concat_the_string(char **str, char **temp, int h)
+{
+	int		quote;
+	int 	len;
+	int		s1_h;
+	int		s2_h;
+	int 	s1_l;
+	int 	s2_l;
+
+	s1_h = 1;
+	s2_h = 1;
+	s1_l = 0;
+	s2_l = 0;
+	len = 0;
+	while (s1_h < h)
+	{
+		len = ft_strlen(str[s1_h]);
+		s1_l = 0;
+		s2_l = 0;
+		quote = 0;
+		while (s1_l < len + 2)
+		{
+			if (quote == 0)
+			{				
+				while (str[s1_h][s1_l] != '=' && s1_l < len + 1)
+					s1_l++;
+				quote = 1;
+			}
+			str[s1_h][s1_l] = temp[s2_h][s2_l];
+			s1_l++;
+			s2_l++;
+		}
+		s1_h++;
+		s2_h++;
+	}
+	free_them_all(temp, h);
+}
+
+void	add_quotation(char **temp, int h)
+{
+	char	**str;
+	int	i;
+	int	l;
+	int	j;
+
+	i = 1;
+	j = 0;
+	printf("%d\n", h);
+	str = ft_calloc(h, sizeof(char *));
+	while (i < h)
+	{
+		l = ft_strlen(temp[i]);
+		str[i] = ft_calloc(l + 3, sizeof(char *));
+		temp[i] = manage_b_and_end_quotation(str[i], temp[i], l + 2);
+		i++;
+	}
+	// free_them_all(str, h);
+	//add_first_quotation(str, temp, h);
+}
+
+char	**return_equal(char **str, int h)
+{
+	char	**temp;
+	int		i;
+	int		l;
+
+	i = 1;
+	l = 0;
+	temp = ft_calloc(h, sizeof(char *));
+	while (i < h)
+	{
+		l = ft_strlen(str[i]);
+		temp[i]= ft_calloc(l + 3, sizeof(char *));
+		temp[i] = ft_strchr(str[i], '=');
+		i++;
+	}
+	return (temp);
 }
 
 int		height_str(char **str)
@@ -95,131 +203,19 @@ int		height_str(char **str)
 	return (i);
 }
 
-char	*manage_end_str(char *str, int len)
-{
-	char	*temp;
-	int		l;
-	int		i;
-
-	i = 0;
-	l = len + 1;
-	temp = calloc(len + 1, sizeof(char *));
-	temp = manage_b_and_end_quotation(temp, str, l);
-	i = 0;
-	while (temp[i])
-	{
-		str[i] = temp[i];
-		i++;
-	}
-	free(temp);
-	return (str);
-}
-
-//char	*add_first_cotation(char **s1, char **s2, int h)
-//{
-//	int	i;
-//	int	j;
-//	int	k;
-
-//	i = 0;
-//	j = 0;
-//	k = 0;
-//	while (i < h)
-//	{
-//		while (s1[i][k])
-//		{
-//			if (i == 0)
-//			{
-//				s2[i][j] = s1[i][k];
-//				j++;
-//				s2[i] = '"';
-//				j++;
-//				k++;
-//			}
-//			s2[i][j] = s1[i][k];
-//			if (i == l)
-//				s2[i] = '"';
-//			i++;
-//			j++;
-//		}
-//	}
-//}
-
-void	add_quotation(char **temp)
-{
-	char	**str;
-	int	i;
-	int	l;
-	int	j;
-	int h;
-
-	i = 1;
-	j = 0;
-	h = height_str(temp);
-	printf("add : h = %d\n", h);
-	str = ft_calloc(h, sizeof(char *));
-	while (i < h)
-	{
-		l = ft_strlen(temp[i]);
-		printf("add : l = %d\n", l);
-		str[i] = ft_calloc(l + 2, sizeof(char *));
-		str[i] = temp[i];
-		printf("str = [%s]\n", str[i]);
-		temp[i] = manage_b_and_end_quotation(temp[i], str[i], l);
-		printf("str = [%s]\n", temp[i]);
-		i++;
-	}
-	//add_first_quotation(str, temp, h);
-}
-
-char	**return_equal(char **str)
-{
-	int	i;
-	int h;
-
-	i = -1;
-	h = height_str(str);
-	printf("h = %d\n", h);
-	i = 0;
-	while (++i < h)
-		str[i] = ft_strchr(str[i], '=');
-	return (str);
-}
-
 void	manage_quotation(char **str)
 {
 	char **temp;
 	int	l;
 	int i;
+	int h;
 
 	l = 0;
 	i = 0;
-	temp = return_equal(str);
-	add_quotation(temp);
-	//printf("str = [%s]\n", temp[1]);
-	// ret_str = str[1];
-	// ret_str = ft_strchr(str[1], '=');
-	// printf("str > '%c'\n", ret_str[l]);
-	// l = ft_strlen(ret_str);
-	// printf("l > '%d'\n", l);
-	// temp = calloc(l, sizeof(char *));
-	// ft_strlcat(temp, ret_str, l + 3);
-	// temp = manage_end_str(temp, l);
-	// printf("temp > '%s'\n", temp);
-	// while (temp[i])
-	// {
-	// 	ret_str[i] = temp[i];
-	// 	i++;
-	// }
-	// i = 0;
-	// l = 0;
-	// printf("str[%s]\n", ret_str);
-	// while (str[1][i] != '=')
-	// 	i++;
-	// while (str[1][i])
-	// 	str[1][i++] = ret_str[l++];
-	// printf("str > '%s'\n", str[1]);
-	// // return (str);
+	h = height_str(str);
+	temp = return_equal(str, h);
+	add_quotation(temp, h);
+	concat_the_string(str, temp, h);
 }
 
 char	**search_args(char *input, t_list **list, int i)
@@ -231,18 +227,19 @@ char	**search_args(char *input, t_list **list, int i)
 
 	h = 0;
 	l = 0;
+	i = 1;
 	count = 0;
 	count = ft_str_search(input, i, count);
 	str = ft_split(input, ' ');
-	// if (check_if_similar(str, count) == 1)
-	// 	printf("\n");
-	
-	manage_quotation(str);
-	// if (the_first_args(input) == 1)
-	// 	stock_args_in_list(str, list);
-	// if (the_first_args(input) == 2)
-	// 	return (str);
-	// print_tab(str);
+	h = height_str(str);
+	if (check_if_similar(str, count) == 1)
+		printf("\n");
+	manage_quotation(str);	
+	if (the_first_args(input) == 1)
+		stock_args_in_list(str, list);
+	if (the_first_args(input) == 2)
+		return (str);
+	print_tab(str);
 	return (NULL);
 }
 

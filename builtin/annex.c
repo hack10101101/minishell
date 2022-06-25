@@ -6,7 +6,7 @@
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 18:16:27 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/20 14:17:35 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/25 12:17:32 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@
 // 		}
 // 		i++;
 // 	}
+
 // char	**define_str(int i, char *input)
 // {
 // 	char **str;
@@ -99,6 +100,7 @@
 // 	}
 // 	return (str);
 // }
+
 // int	*check_alpha_args(char **str, int count)
 // {
 // 	int *tab;
@@ -125,3 +127,12 @@
 // 	}
 // 	return (tab);
 // }
+
+		// while (str[i][j] && i > 0)
+		// {
+		// 	while (str[i][j] != '=')
+		// 		j++;
+		// 	str[i][j] = temp[k][l];
+		// 	print_str("str2", str[i], j, "in the while");
+		// 	j++;
+		// }
