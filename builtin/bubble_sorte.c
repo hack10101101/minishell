@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fctannexe.c                                     :+:      :+:    :+:   */
+/*   bubble_sorte.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/15 15:26:02 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/20 14:20:50 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:17:23 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,6 @@ int	ft_boucle(char *input, char c, int i)
 	while (input[i] == c)
 		i++;
 	return (i);
-}
-
-void ft_display(char **array)
-{
-	printf("----start----\n"); 
-	while (*array)
-	{
-		printf("%c\n", *array[0]); 
-		array++;
-	}
-	printf("----end----\n"); 
 }
 
 void	ft_swap(char **array, int idx)

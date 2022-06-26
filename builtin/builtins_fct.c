@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   builtins_fct.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdi-noce <kdi-noce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 18:29:16 by kdi-noce          #+#    #+#             */
-/*   Updated: 2022/06/20 13:44:18 by kdi-noce         ###   ########.fr       */
+/*   Updated: 2022/06/26 20:45:27 by kdi-noce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	ft_env(t_list *list, char *input)
+void	ft_env(t_list *list)
 {
 	while (list)
 	{
@@ -86,24 +86,34 @@ t_list	*ft_unset(char *input, t_list **list)
 	str = order_list(*list, input);
 	i = 0;
 	x = 1;
-	while (search[x])
-	{
-		printf("search[%d] = %s\n", x, search[x]);
-		x++;
-	}
-	// while (ft_strcmp(search[x], str[i]) == 0)
+	if (!(str))
+		return (NULL);
+	// while (search[x])
 	// {
-		// while (str[i])
-		// {
-		// 	if (ft_strcmp(search[x], str[i]) == 0)
-		// 	{
-		// 		printf("unset = %s\n", str[i]);
-		// 		x++;
-		// 	}
-		// 	i++;
-		// }
-		// i = 0;
+	// 	printf("search[%d] = %s\n", x, search[x]);
+	// 	x++;
 	// }
+	while (search[x])
+		print_str("unset", search[x], 0, i, "end"), x++;
+	while (str[i])
+	{
+		while (search[x])
+		{
+			while (ft_strcmp(search[x], str[i]) != 0)
+			{
+				i++;
+				print_str("unset", str[i], 0, i, "end");
+			}
+			print_str("unset", str[i], 0, i, "end");
+			str[i] = NULL;
+			print_str("unset", str[i], 0, i, "end");
+			if (x > 1)
+				x++;
+			else
+				break ;
+		}
+	}
+
 	// while (str[i])
 	// 	printf("%s\n", str[i++]);
 	return (NULL);
